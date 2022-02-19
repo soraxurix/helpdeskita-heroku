@@ -19,10 +19,39 @@
                     WHERE id_reporte = '".$datos['idReporte']."'";
 
             // echo json_encode($sql1);
+            /*echo $sql."</br>";
+            echo $sql1."</br>";*/
             $resultado = mysqli_query($conexion,$sql);
             $resultado2 = mysqli_query($conexion,$sql1);
 
             if($resultado && $resultado2){
+              return 1;
+            }else{
+              return 0;
+            }
+        }
+
+
+        public function CambiarEstado($datos)
+        {
+          $conexion = Conexion::conectar();
+          $sql = "UPDATE t_reportes SET estado = 2
+          WHERE id_reporte = '".$datos['idReporte']."'";
+          $resultado = mysqli_query($conexion,$sql);
+          if($resultado){
+            return 1;
+          }else{
+            return 0;
+          }
+        }
+
+        public function RecogerReporte($datos)
+        {
+          $conexion = Conexion::conectar();
+          $sql = "UPDATE t_reportes_finalizados SET documento_recogido = 2
+          WHERE id_reporte = '".$datos['idReporte']."'";
+          $resultado = mysqli_query($conexion,$sql);
+          if($resultado){
               return 1;
             }else{
               return 0;

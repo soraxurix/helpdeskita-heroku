@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
         
-      <input type="text" id="idUsuario" name="idUsuario" >
+      <input type="text" id="idUsuario" name="idUsuario" hidden>
         <!-- Formulario en modal -->
         <div class="row">
             <div class="col-sm-4">
@@ -75,7 +75,7 @@
 
       </div>
       <div class="modal-footer">
-        <span class="btn btn-secondary" data-dismiss="modal">Cerrar</span>
+        <span class="btn btn-secondary" data-dismiss="modal" id="button_cerrarE">Cerrar</span>
         <button class="btn btn-warning">Editar</button>
       </div>
     </div>

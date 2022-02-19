@@ -35,17 +35,6 @@
                 <input type="date" class="form-control" id="fechaIn" name="fechaIn" required>
             </div>
             <div class="col-sm-4">
-                <label for="fechaNacimiento"> Fecha de nacimiento </label>
-                <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required>
-            </div>
-            <div class="col-sm-4">
-                <label for="sexo"> Sexo </label>
-                <select class="form-control" name="sexo" id="sexo">
-                    <option value="F">Femenino</option>
-                    <option value="M">Masculino</option>
-                </select>
-            </div>
-            <div class="col-sm-4">
                 <label for="telefono"> Telefono </label>
                 <input type="text" class="form-control" id="telefono" name="telefono" required>
             </div>
@@ -78,7 +67,7 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <label for="ubicacion">Ubicación</label>
+                <label for="ubicacion">Departamento</label>
                 <textarea name="ubicacion" id="ubicacion" class="form-control" required></textarea>
             </div>
         </div>
@@ -86,7 +75,7 @@
 
       </div>
       <div class="modal-footer">
-        <span class="btn btn-secondary" data-dismiss="modal">Cerrar</span>
+        <span class="btn btn-secondary" data-dismiss="modal" id="button_cerrarA">Cerrar</span>
         <button class="btn btn-primary">Agregar</button>
       </div>
     </div>

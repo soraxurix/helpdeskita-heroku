@@ -1,12 +1,19 @@
 <?php
-
+    
+    include "../../../clases/Usuarios.php";
     session_start();
     $usuario = $_POST['login'];
     $password = $_POST['password'];
 
-    include "../../../clases/Usuarios.php";
-    $Usuarios = new Usuarios();
+    /*$usuario = "admin";
+    $password = "L4LL4v3M@3str@";*/
 
-    echo $Usuarios->loginUsuario($usuario, $password);
+    
+    $encriptada = getEncryptedPassword($password);
+    
+    
+    $Usuarios = new Usuarios();
+    
+    echo $Usuarios->loginUsuario($usuario, $encriptada);
 
 ?>

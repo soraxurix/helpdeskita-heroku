@@ -12,18 +12,13 @@
                     reportes.nombre_solicitante AS nombreSolicitante,
                     reportes.fecha_elaboracion AS fechaElaboracion,
                     reportes.descripcion AS descripcion,
-                    reportes.estado AS estado,
-                    finalizados.id_reporte AS idReporte1,
-                    finalizados.documento_recogido AS recogido,
-                    finalizados.firma_verificacion AS firmaVerificacion
+                    reportes.estado AS estado
             FROM
                     t_reportes AS reportes
                         INNER JOIN
                     t_usuarios AS usuarios ON usuarios.id_usuario = reportes.id_usuario
-                        INNER JOIN
-                    t_reportes_finalizados AS finalizados ON reportes.id_reporte = finalizados.id_reporte
             WHERE
-                    reportes.id_usuario = $idUsuario ";
+                    reportes.id_usuario = $idUsuario AND reportes.estado NOT LIKE 3 ";
 
     $respuesta = mysqli_query($conexion1, $sql) or die(mysqli_error($conexion1));
     $respuestaArray = array();
@@ -39,7 +34,7 @@
 ?>
 
 <button id="button-crear_reportes" class="btn btn-primary" data-toggle="modal" data-target="#modalcrearReporte"
-                onclick="obtenerDatosUsuario(<?php echo $mostrar1[0]['idUsuario']?>)" hidden>
+                onclick="obtenerDatosUsuario(<?php echo $mostrar1[0]['idUsuario']?>)" >
           Crear reporte
 </button>
 
@@ -55,9 +50,8 @@
         <th>Fecha de elaboracion</th>
         <th>Descripcion</th>
         <th>Estado</th>
-        <th>Imprimir reporte terminado</th>
-        <th>¿Reporte Firmado?</th>
-        <th>Reporte recogido</th>
+
+
 
     </thead>
 
@@ -83,66 +77,19 @@
             <td><?php echo $descripcion; ?></td>
 
             <td>
-                <?php if($mostrar['estado'] == 1) {?>
-                    <button class="btn btn-warning btn-sm" disabled>
-                        Pendiente
-                    </button>
-                <?php
-                } else {
-                ?>
-                    <button class="btn btn-info btn-sm" disabled>
-                        Resuelto
-                    </button>
-                <?php
-                    }
-                ?>
-            </td>
-            <td>
-                <?php if($mostrar['estado'] == 3) {?>
-                  <button type="button" class="btn btn-info btn-sm" onclick="generarPDF2(<?php echo $mostrar['idReporte']; ?>)">
-                      <i class="fas fa-print"></i>
+              <?php if($mostrar['estado'] == 1) {?>
+                  <button class="btn btn-warning btn-sm" disabled>
+                      Pendiente
                   </button>
-                <?php
-                } else {
-                ?>
-                    <button type="button" class="btn btn-warning btn-sm" disabled>
-                        <i class="fas fa-print"></i>
-                    </button>
-                <?php
-                    }
-                ?>
-            </td>
-
-            <td>
-                <?php if($mostrar['estado'] == 3 && $mostrar['firmaVerificacion'] == 1) { ?>
-                  <button type="button" class="btn btn-info btn-sm" onclick="firmarReporte(<?php echo $mostrar['idReporte']?>)">
-                        <i class="fas fa-check"></i>
+              <?php
+              } else if($mostrar['estado'] == 2) {
+              ?>
+                  <button class="btn btn-info btn-sm" disabled>
+                      En proceso
                   </button>
-                <?php
-                } else if($mostrar['estado'] == 3 && $mostrar['firmaVerificacion'] == 2) {
-                ?>
-                  <button type="button" class="btn btn-success btn-sm" disabled>
-                        <i class="fas fa-check"></i>
-                  </button>
-                <?php
-                }
-                ?>
-            </td>
-
-            <td>
-                <?php if($mostrar['recogido'] == 2) { ?>
-                  <button type="button" class="btn btn-success btn-sm" disabled>
-                        <i class="fas fa-check"></i>
-                  </button>
-                <?php
-                } else {
-                ?>
-                  <button type="button" class="btn btn-danger btn-sm" disabled>
-                        <i class="fas fa-times"></i>
-                  </button>
-                <?php
-                }
-                ?>
+              <?php
+              }
+              ?>
             </td>
 
         </tr>

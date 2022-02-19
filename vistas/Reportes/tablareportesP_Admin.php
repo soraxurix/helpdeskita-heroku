@@ -41,6 +41,12 @@
 
         <?php
             while($mostrar = mysqli_fetch_array($respuesta)){
+                $descripcion = "";
+                if(strlen($mostrar['descripcion']) > 25){
+                    $descripcion = substr($mostrar['descripcion'], 0, 25)."...";
+                }else{
+                    $descripcion = $mostrar['descripcion'];
+                }
         ?>
 
         <tr>
@@ -51,7 +57,7 @@
             <td><?php echo $mostrar['areaSolicitante']; ?></td>
             <td><?php echo $mostrar['nombreSolicitante']; ?></td>
             <td><?php echo $mostrar['fechaElaboracion']; ?></td>
-            <td><?php echo $mostrar['descripcion']; ?></td>
+            <td><?php echo $descripcion; ?></td>
 
             <td>
                 <?php if($mostrar['estado' == 1]){?>
@@ -65,13 +71,13 @@
 
             <td>
                 <?php if($mostrar['estado'] == 1) {?>
-                    <button class="btn btn-warning btn-sm" data-toggle="modal">
+                    <button class="btn btn-warning btn-sm" onclick="CambiarEstado(<?php echo $mostrar['idReporte']; ?>)">
                         Pendiente
                     </button>
                 <?php
                 } else if($mostrar['estado'] == 2) {
                 ?>
-                    <button class="btn btn-info btn-sm" data-toggle="modal">
+                    <button class="btn btn-info btn-sm" disabled>
                         En proceso
                     </button>
                 <?php
@@ -102,5 +108,14 @@
     function terminarReporte (id) {
         document.getElementById("idReporte").value = id;
         $('#modalterminarReporte').modal('show');
+    }
+
+    function CambiarEstado (id) {
+        document.getElementById("idReporteCE").value = id;
+        $('#modalCambiarEstado').modal('show');
+    }
+
+    function generarPDF(id){
+        window.open("../procesos/reportes/pdf/vista_previa.php?reporte="+id);
     }
 </script>
